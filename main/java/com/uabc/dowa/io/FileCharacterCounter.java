@@ -1,6 +1,7 @@
 package com.uabc.dowa.io;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,23 +9,19 @@ import java.io.IOException;
 
 public class FileCharacterCounter {
 
-   private String fileName = "chewie.txt";
+   private static final String fileName = "chewie.txt";
 
     public static int countNumberOfOccurrencesInFile(char character) {
 
-        FileCharacterCounter characterCounter = new FileCharacterCounter();
-
-        String fileName = characterCounter.getFileName();
-        LinkedList<String> lines = FileCharacterCounter.getLinesByFile(fileName);
+        String fileName = FileCharacterCounter.fileName;
+        List<String> lines = FileCharacterCounter.getLinesByFile(fileName);
 
         int counter = 0;
 
-        for(int linePosition = 0; linePosition < lines.size(); linePosition++){
+        for(String currentLine : lines){
 
-            String currentLine = lines.get(linePosition);
-
-            for (int charPosition = 0; charPosition < currentLine.length(); charPosition++) {
-                  if (currentLine.charAt(charPosition) == character) {
+            for (char currentCharacter : currentLine.toCharArray()) {
+                  if (currentCharacter == character) {
                     counter++;
                   }
             }
@@ -33,10 +30,10 @@ public class FileCharacterCounter {
         return counter;
     }
 
-    public static LinkedList<String> getLinesByFile(String fileName)
+    private static List<String> getLinesByFile(String fileName)
     {
         String currentLine;
-        LinkedList<String> lines = new LinkedList<>();
+        List<String> lines = new ArrayList<String>();
 
         try (InputStream in = FileCharacterCounter.class.getResourceAsStream(fileName);
              InputStreamReader inR = new InputStreamReader(in);
@@ -52,29 +49,20 @@ public class FileCharacterCounter {
         return lines;
     }
 
-    public static LinkedList<String> getLinesInReverseOrder()
+    public static List<String> getLinesInReverseOrder()
     {
-        FileCharacterCounter characterCounter = new FileCharacterCounter();
 
-        String fileName = characterCounter.getFileName();
-        LinkedList<String> lines = FileCharacterCounter.getLinesByFile(fileName);
+        String fileName = FileCharacterCounter.fileName;
+        List<String> lines = FileCharacterCounter.getLinesByFile(fileName);
 
-        LinkedList<String> newLines =  new LinkedList<>();
+        List<String> newLines =  new ArrayList<String>();
 
-        for(int linePosition = 0; linePosition < lines.size(); linePosition++){
-            newLines.add(lines.get(lines.size() - linePosition - 1));
+        for(String currentLine : lines){
+            newLines.add(0, currentLine);
         }
 
         return newLines;
 
-    }
-
-    public void setFileName(String newFileName){
-        this.fileName = newFileName;
-    }
-
-    public String getFileName(){
-        return this.fileName;
     }
 
 }

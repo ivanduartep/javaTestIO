@@ -1,7 +1,7 @@
 package com.uabc.dowa.io;
 
 import org.junit.Test;
-import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,7 +26,7 @@ public class FileCharacterCounterTest {
 
     @Test
     public void testGetLinesInReverseOrder() throws Exception {
-        LinkedList<String> linesInReverseOrder = FileCharacterCounter.getLinesInReverseOrder();
+        List<String> linesInReverseOrder = FileCharacterCounter.getLinesInReverseOrder();
         assertNotNull(linesInReverseOrder);
         assertEquals(9, linesInReverseOrder.size());
         assertEquals("of Kashyyyk during the Clone Wars and during the Galactic Civil War.", linesInReverseOrder.get(0));
